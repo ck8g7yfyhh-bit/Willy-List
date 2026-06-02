@@ -5,9 +5,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "deploy": "npm run build && git add . && git commit -m 'fast deploy' && git push origin main && npx gh-pages -d dist"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
 },
   "dependencies": {
     "opencc-js": "^1.3.1",
