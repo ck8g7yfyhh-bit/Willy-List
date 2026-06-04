@@ -426,13 +426,10 @@ export default function App() {
       )}
 
       <nav className={`h-24 shrink-0 w-full flex items-center justify-between px-6 lg:px-12 z-40 transition-colors duration-300 ${theme === 'dark' ? 'bg-[#0a0a0a]' : 'bg-white'}`}>
-        <div className="flex items-center gap-12 ml-[56px] lg:ml-[136px] xl:ml-[196px]">
+        <div className="flex items-center gap-16 lg:gap-24 ml-[56px] lg:ml-[136px] xl:ml-[196px]">
           <div onClick={() => setCurrentPage('home')} className="flex items-center cursor-pointer hover:opacity-80 transition-opacity">
             <img src="/wattpad.png" alt="logo" className={`w-12 h-12 lg:w-[60px] lg:h-[60px] object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} />
           </div>
-        </div>
-        
-        <div className="flex items-center gap-12 md:mr-20 lg:mr-32 xl:mr-[280px]">
           
           <div className={`hidden md:flex items-center gap-12 font-bold text-sm ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
             <button onClick={() => setCurrentPage('anime')} className={`flex items-center transition-colors border-none bg-transparent hover:opacity-70 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
@@ -463,7 +460,9 @@ export default function App() {
               </div>
             </button>
           </div>
-          
+        </div>
+        
+        <div className="flex items-center md:mr-20 lg:mr-32 xl:mr-[280px]">
           {/* Minimalist Search Bar */}
           <div className="relative hidden sm:flex items-center group">
             <svg className={`absolute left-0 w-4 h-4 transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-black'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -1324,7 +1323,10 @@ function ProfileView({ playlist, onUpdateProgress, onChangeStatus, onRemove, onO
                     ) : (
                       <div className={`text-[11px] font-bold mb-1 flex items-center gap-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
                         {anime.season || anime.year ? <span>{anime.season} {anime.year}</span> : null}
-                        <span className="flex items-center gap-1"><img src="/sparkle.png" className={`w-3 h-3 object-contain dark:invert`} alt="star" /> {anime.score}</span>
+                        <span className="flex items-center gap-1">
+                          <img src="/sparkle.png" className={`w-3 h-3 object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} alt="star" />
+                          {anime.score}
+                        </span>
                       </div>
                     )}
                     
