@@ -1,5 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
+const wattpadLogo = '/wattpad.png';
+const codeIcon = '/code.png';
+const anilistIcon = '/anilist.svg';
+const developerIcon = '/developer.png';
+const notionIcon = '/notion-icon.svg';
+const sparkleIcon = '/sparkle.png';
+const anilistLogoWhite = '/AniList_logo白.svg';
+const anilistLogo = '/AniList_logo.svg.png';
+
 const LIST_STATUS = {
   WATCHING: 'watching',    
   PLANNED: 'planned',      
@@ -294,12 +303,10 @@ export default function App() {
         actorName: c.voiceActors && c.voiceActors.length > 0 ? c.voiceActors[0].name.full : '未知'
       }));
 
-      // 擷取 Trailer 資料，如果是 YouTube 則組成嵌入網址
       const trailerData = charResData.Media?.trailer;
       let trailerUrl = null;
       if (trailerData) {
         if (trailerData.site?.toLowerCase() === 'youtube') {
-          // 改回標準 youtube.com，後續靠 iframe 隱藏來源來繞過版權阻擋
           trailerUrl = `https://www.youtube.com/embed/${trailerData.id}`;
         } else if (trailerData.site?.toLowerCase() === 'dailymotion') {
           trailerUrl = `https://www.dailymotion.com/embed/video/${trailerData.id}`;
@@ -426,10 +433,13 @@ export default function App() {
       )}
 
       <nav className={`h-24 shrink-0 w-full flex items-center justify-between px-6 lg:px-12 z-40 transition-colors duration-300 ${theme === 'dark' ? 'bg-[#0a0a0a]' : 'bg-white'}`}>
-        <div className="flex items-center gap-16 lg:gap-24 ml-[56px] lg:ml-[136px] xl:ml-[196px]">
+        <div className="flex items-center gap-12 ml-[56px] lg:ml-[136px] xl:ml-[196px]">
           <div onClick={() => setCurrentPage('home')} className="flex items-center cursor-pointer hover:opacity-80 transition-opacity">
-            <img src="/wattpad.png" alt="logo" className={`w-12 h-12 lg:w-[60px] lg:h-[60px] object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} />
+            <img src={wattpadLogo} alt="logo" className={`w-12 h-12 lg:w-[60px] lg:h-[60px] object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} />
           </div>
+        </div>
+        
+        <div className="flex items-center gap-12 md:mr-20 lg:mr-32 xl:mr-[280px]">
           
           <div className={`hidden md:flex items-center gap-12 font-bold text-sm ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
             <button onClick={() => setCurrentPage('anime')} className={`flex items-center transition-colors border-none bg-transparent hover:opacity-70 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
@@ -460,9 +470,7 @@ export default function App() {
               </div>
             </button>
           </div>
-        </div>
-        
-        <div className="flex items-center md:mr-20 lg:mr-32 xl:mr-[280px]">
+          
           {/* Minimalist Search Bar */}
           <div className="relative hidden sm:flex items-center group">
             <svg className={`absolute left-0 w-4 h-4 transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-black'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -512,7 +520,6 @@ export default function App() {
         )}
       </main>
 
-      {}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
           <div className={`absolute inset-0 backdrop-blur-sm cursor-pointer transition-colors duration-300 ${theme === 'dark' ? 'bg-black/80' : 'bg-black/60'}`} onClick={() => setIsModalOpen(false)}></div>
@@ -614,7 +621,7 @@ export default function App() {
                     <div className={`flex justify-between pb-2 border-b ${theme === 'dark' ? 'border-[#333]' : 'border-gray-200'}`}>
                       <span>評分</span>
                       <span className={`flex items-center gap-1 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                        <img src="/sparkle.png" className={`w-3.5 h-3.5 object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} alt="star" /> 
+                        <img src={sparkleIcon} className={`w-3.5 h-3.5 object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} alt="star" /> 
                         {modalData.score}
                       </span>
                     </div>
@@ -723,8 +730,8 @@ function FooterMarquee({ playlist, theme }) {
       <div className="flex whitespace-nowrap animate-[scroll_120s_linear_infinite] text-[11px] font-mono text-gray-500 font-bold items-center pointer-events-auto">
         {[...Array(repeatCount)].map((_, i) => (
           <React.Fragment key={i}>
-            <img src={theme === 'dark' ? '/AniList_logo白.svg' : '/AniList_logo.svg.png'} alt="AniList Logo" className="mx-6 w-[18px] h-[18px] object-cover rounded-[4px] shrink-0" />
-            <span className={`mx-6 text-black tracking-widest uppercase shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Currently Watching</span>
+            <img src={theme === 'dark' ? anilistLogoWhite : anilistLogo} alt="AniList Logo" className={`mx-6 w-[18px] h-[18px] object-cover rounded-[4px] shrink-0 transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} />
+            <span className={`mx-6 tracking-widest uppercase shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Currently Watching</span>
             {watchingList.length > 0 ? (
               watchingList.map((anime, idx) => (
                 <span key={`${anime.id}-${i}-${idx}`} className={`mx-6 cursor-pointer transition-colors shrink-0 ${theme === 'dark' ? 'hover:text-gray-300 text-white' : 'hover:text-black text-black'}`}>
@@ -793,19 +800,19 @@ function HomeView({ allSeasonAnime, currentSeasonInfo, onAdd, onOpenModal, isLoa
 
           <div className={`grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-6 mb-16 text-[15px] font-medium transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
             <div className="flex items-center gap-3">
-              <img src="/code.png" alt="API" className={`w-5 h-5 object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} />
+              <img src={codeIcon} alt="API" className={`w-5 h-5 object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} />
               GraphQL API
             </div>
             <a href="https://anilist.co/" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-3 hover:opacity-70 transition-opacity no-underline ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              <img src="/anilist.svg" alt="AniList" className={`w-5 h-5 object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} />
+              <img src={anilistIcon} alt="AniList" className={`w-5 h-5 object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} />
               AniList
             </a>
             <a href="https://github.com/ck8g7yfyhh-bit/anime-tracker/tree/main" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-3 hover:opacity-70 transition-opacity no-underline ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              <img src="/developer.png" alt="GitHub" className={`w-5 h-5 object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} />
+              <img src={developerIcon} alt="GitHub" className={`w-5 h-5 object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} />
               GitHub
             </a>
             <a href="https://www.notion.so/Anime-2e1d8b733d024f98a2767ae4209e525b?di=182b0c4e59934b4e853f90c1898138e7" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-3 hover:opacity-70 transition-opacity no-underline ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              <img src="/notion-icon.svg" alt="Notion" className={`w-5 h-5 object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} />
+              <img src={notionIcon} alt="Notion" className={`w-5 h-5 object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} />
               Willy-Anime
             </a>
           </div>
@@ -907,10 +914,10 @@ function AnimeCardHome({ anime, onClick, onAdd, theme }) {
         <div className="flex items-center gap-5 mb-2 mt-auto">
           <div className="flex flex-col">
             <span className={`text-[14px] font-bold leading-none mb-1 flex items-center gap-1.5 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              <img src="/sparkle.png" className={`w-3.5 h-3.5 object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} alt="star" /> 
+              <img src={sparkleIcon} className={`w-3.5 h-3.5 object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} alt="star" /> 
               {anime.score}
             </span>
-            <span className={`text-[10px] text-[#BDC0BA] dark:text-gray-500 font-medium leading-none`}>{anime.users ? (anime.users/1000).toFixed(0)+'k' : '0'} users</span>
+            <span className={`text-[10px] text-[#BDC0BA] font-medium leading-none`}>{anime.users ? (anime.users/1000).toFixed(0)+'k' : '0'} users</span>
           </div>
         </div>
         
@@ -956,10 +963,10 @@ function AnimeCardHorizontal({ anime, onClick, onAdd, theme }) {
         <div className="flex items-center gap-4 mb-2 mt-auto">
           <div className="flex flex-col">
             <span className={`text-[13px] font-bold leading-none mb-1 flex items-center gap-1 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              <img src="/sparkle.png" className={`w-3 h-3 object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} alt="star" /> 
+              <img src={sparkleIcon} className={`w-3 h-3 object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} alt="star" /> 
               {anime.score}
             </span>
-            <span className={`text-[9px] font-medium leading-none ${theme === 'dark' ? 'text-gray-500' : 'text-[#BDC0BA]'}`}>{anime.users ? (anime.users/1000).toFixed(0)+'k' : '0'} users</span>
+            <span className={`text-[9px] text-[#BDC0BA] font-medium leading-none`}>{anime.users ? (anime.users/1000).toFixed(0)+'k' : '0'} users</span>
           </div>
         </div>
         
@@ -1143,7 +1150,7 @@ function CatalogView({ searchQuery, onAdd, onOpenModal, theme }) {
                     onClick={() => { 
                       setActiveYear(y); 
                       setCurrentPage(1);
-                      if (y === '全部' || y === '2000以前' || y === '即轉上映') setActiveSeason('全部'); 
+                      if (y === '全部' || y === '2000以前' || y === '即將上映') setActiveSeason('全部'); 
                     }} 
                     className={`shrink-0 px-4 py-1.5 rounded-none border-none text-xs font-bold transition-all whitespace-nowrap ${activeYear === y ? (theme === 'dark' ? 'bg-white text-black' : 'bg-black text-white') : `${theme === 'dark' ? 'bg-[#1a1a1a] hover:bg-[#333]' : 'bg-gray-100 hover:bg-gray-200'} text-gray-500`}`}>
                     {y}
@@ -1324,7 +1331,7 @@ function ProfileView({ playlist, onUpdateProgress, onChangeStatus, onRemove, onO
                       <div className={`text-[11px] font-bold mb-1 flex items-center gap-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
                         {anime.season || anime.year ? <span>{anime.season} {anime.year}</span> : null}
                         <span className="flex items-center gap-1">
-                          <img src="/sparkle.png" className={`w-3 h-3 object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} alt="star" />
+                          <img src={sparkleIcon} className={`w-3 h-3 object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} alt="star" />
                           {anime.score}
                         </span>
                       </div>
