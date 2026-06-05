@@ -154,6 +154,18 @@ export default function App() {
     }
   });
 
+  // 新增：設定分頁標題與圖標
+  useEffect(() => {
+    document.title = 'Willy-List';
+    let link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.head.appendChild(link);
+    }
+    link.href = './assets/wattpad.png';
+  }, []);
+
   useEffect(() => {
     try {
       localStorage.setItem('app-theme', theme);
