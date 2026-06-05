@@ -442,7 +442,7 @@ export default function App() {
           </div>
         </div>
         
-        <div className="flex-1 flex justify-end items-center px-8 md:pr-12 lg:pr-24 xl:pr-[280px]">
+        <div className="flex-1 flex justify-end items-center px-8 md:pr-12 lg:pr-24 min-[1920px]:pr-[280px]">
           <div className={`hidden md:flex items-center gap-8 lg:gap-12 font-bold text-sm ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
             <button onClick={() => setCurrentPage('anime')} className={`flex items-center transition-colors border-none bg-transparent hover:opacity-70 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
               <svg className="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M10 6H18V14M18 6L6 18"></path></svg>
@@ -521,11 +521,11 @@ export default function App() {
         )}
       </main>
 
-      {/* Modal */}
+      {/* Modal - 加寬為 max-w-5xl */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
           <div className={`absolute inset-0 backdrop-blur-sm cursor-pointer transition-colors duration-300 ${theme === 'dark' ? 'bg-black/80' : 'bg-black/60'}`} onClick={() => setIsModalOpen(false)}></div>
-          <div className={`relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-none shadow-2xl flex flex-col md:flex-row transition-colors duration-300 ${theme === 'dark' ? 'bg-[#141414]' : 'bg-white'}`}>
+          <div className={`relative w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-none shadow-2xl flex flex-col md:flex-row transition-colors duration-300 ${theme === 'dark' ? 'bg-[#141414]' : 'bg-white'}`}>
             <button onClick={() => setIsModalOpen(false)} className={`absolute top-4 right-4 z-10 w-8 h-8 rounded-none flex items-center justify-center transition-colors border-none ${theme === 'dark' ? 'bg-[#222] text-gray-500 hover:bg-white hover:text-black' : 'bg-gray-100 text-gray-500 hover:bg-black hover:text-white'}`}>✕</button>
 
             {isModalLoading ? (
@@ -535,7 +535,7 @@ export default function App() {
               </div>
             ) : modalData && (
               <>
-                <div className={`w-full md:w-[35%] p-8 flex flex-col items-center border-r transition-colors duration-300 ${theme === 'dark' ? 'bg-[#0f0f0f] border-[#222]' : 'bg-gray-50 border-gray-100'}`}>
+                <div className={`w-full md:w-[30%] p-8 flex flex-col items-center border-r transition-colors duration-300 ${theme === 'dark' ? 'bg-[#0f0f0f] border-[#222]' : 'bg-gray-50 border-gray-100'}`}>
                   <img src={modalData.imageUrl} alt="poster" className={`w-full max-w-[220px] rounded-[12px] shadow-md mb-6 transition-colors duration-300 ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200'}`} />
                   
                   {(() => {
@@ -633,7 +633,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className={`w-full md:w-[65%] p-8 md:p-10 overflow-y-auto max-h-[90vh] transition-colors duration-300 ${theme === 'dark' ? 'bg-[#141414]' : 'bg-white'}`}>
+                <div className={`w-full md:w-[70%] p-8 md:p-10 overflow-y-auto max-h-[90vh] transition-colors duration-300 ${theme === 'dark' ? 'bg-[#141414]' : 'bg-white'}`}>
                   <div className="mb-8">
                     <div className="flex items-center gap-2 mb-2">
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-none tracking-wider ${
@@ -657,13 +657,16 @@ export default function App() {
                   {modalData.characters && modalData.characters.length > 0 && (
                     <div className={`mt-8 border-t pt-8 ${theme === 'dark' ? 'border-[#333]' : 'border-gray-100'}`}>
                       <h3 className={`text-sm font-bold mb-4 uppercase tracking-wider ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Characters</h3>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {/* 修改為 grid-cols-3，並縮小整體區塊 padding */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         {modalData.characters.map(char => (
-                          <div key={char.id} className={`p-3 flex items-center gap-3 rounded-none transition-colors border-none ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-gray-50'}`}>
-                            {char.image ? <img src={char.image} alt={char.name} className="w-10 h-10 rounded-none object-cover shrink-0" /> : <div className={`w-10 h-10 rounded-none shrink-0 ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200'}`}></div>}
+                          <div key={char.id} className={`p-2 flex items-center gap-2 rounded-none transition-colors border-none ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-gray-50'}`}>
+                            {/* 縮小頭像為 w-8 h-8 */}
+                            {char.image ? <img src={char.image} alt={char.name} className="w-8 h-8 rounded-none object-cover shrink-0" /> : <div className={`w-8 h-8 rounded-none shrink-0 ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200'}`}></div>}
                             <div className="overflow-hidden">
-                              <p className={`text-sm font-bold truncate ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>{char.name}</p>
-                              <p className="text-xs text-gray-500 truncate">CV: {char.actorName}</p>
+                              {/* 縮小文字 */}
+                              <p className={`text-xs font-bold truncate ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>{char.name}</p>
+                              <p className="text-[10px] text-gray-500 truncate">CV: {char.actorName}</p>
                             </div>
                           </div>
                         ))}
@@ -782,11 +785,11 @@ function HomeView({ allSeasonAnime, currentSeasonInfo, onAdd, onOpenModal, isLoa
   const currentDayIndex = currentJS === 0 ? 6 : currentJS - 1; 
   const [activeTab, setActiveTab] = useState(currentDayIndex);
   
-  /* 精準判斷 1536px (Tailwind 2xl斷點)：MacBook 會拿到 3，大外接螢幕會拿到 4 */
-  const [itemsPerRow, setItemsPerRow] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1536 ? 4 : 3);
+  /* 精準判斷 1920px (將您的筆電 1800px 歸類在 3 欄，大外接螢幕 2560px 歸類在 4 欄) */
+  const [itemsPerRow, setItemsPerRow] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1920 ? 4 : 3);
   
   useEffect(() => {
-    const handleResize = () => setItemsPerRow(window.innerWidth >= 1536 ? 4 : 3);
+    const handleResize = () => setItemsPerRow(window.innerWidth >= 1920 ? 4 : 3);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -820,15 +823,15 @@ function HomeView({ allSeasonAnime, currentSeasonInfo, onAdd, onOpenModal, isLoa
   return (
     <div className={`flex flex-col lg:flex-row h-full overflow-hidden relative pb-8 items-start transition-colors duration-300 ${theme === 'dark' ? 'bg-[#0a0a0a]' : 'bg-white'}`}>
       
-      {/* 天花板 padding：小於 1536px 是 12vh，大螢幕 2xl 恢復 18vh */}
-      <div className="w-full lg:w-[35%] h-full flex flex-col px-8 lg:pl-8 lg:pr-8 shrink-0 overflow-y-auto pt-[12vh] 2xl:pt-[18vh]">
+      {/* 天花板 padding：小於 1920px (筆電) 是 12vh，大螢幕 1920px 以上恢復 18vh */}
+      <div className="w-full lg:w-[35%] h-full flex flex-col px-8 lg:pl-8 lg:pr-8 shrink-0 overflow-y-auto pt-[12vh] min-[1920px]:pt-[18vh]">
         <div className="w-full max-w-[480px] ml-auto flex flex-col h-full pb-[10vh]">
           
           <p className={`text-[15px] font-medium mb-12 flex items-center gap-2 transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
             Powered by AniList GraphQL API <span className="font-sans">↗</span>
           </p>
           
-          <h1 className={`text-[4.5rem] 2xl:text-[5.5rem] tracking-tight mb-10 fascinate-regular leading-none transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+          <h1 className={`text-[4.5rem] min-[1920px]:text-[5.5rem] tracking-tight mb-10 fascinate-regular leading-none transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
             Willy List
           </h1>
           
@@ -837,7 +840,7 @@ function HomeView({ allSeasonAnime, currentSeasonInfo, onAdd, onOpenModal, isLoa
             <br/><strong>"most active online anime community and database"</strong>.
           </p>
 
-          <div className={`grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-6 mb-16 text-[15px] font-medium transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+          <div className={`grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-6 text-[15px] font-medium transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
             <div className="flex items-center gap-3">
               {codeIcon && <img src={codeIcon} alt="API" className={`w-5 h-5 object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} />}
               GraphQL API
@@ -856,21 +859,14 @@ function HomeView({ allSeasonAnime, currentSeasonInfo, onAdd, onOpenModal, isLoa
             </a>
           </div>
 
-          <div className="flex items-center gap-12 mt-auto pt-8">
-            <button onClick={() => setCurrentPage('anime')} className={`font-medium text-[16px] hover:underline transition-all border-none bg-transparent ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              Learn more
-            </button>
-            <button onClick={() => setCurrentPage('profile')} className={`font-medium text-[16px] flex items-center gap-2 hover:opacity-70 transition-all border-none bg-transparent ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              <span className="font-sans">↗</span> Get started
-            </button>
-          </div>
+          {/* 移除了原本的 Learn more 和 Get started 按鈕 */}
         </div>
       </div>
 
       <div className="w-full lg:w-[65%] h-full flex flex-col relative overflow-hidden">
         
-        {/* 天花板 padding：小於 1536px 是 12vh，大螢幕 2xl 恢復 18vh */}
-        <div className={`shrink-0 w-full pt-[12vh] 2xl:pt-[18vh] pb-6 px-8 flex flex-col items-start gap-6 z-10 transition-colors duration-300 ${theme === 'dark' ? 'bg-[#0a0a0a]' : 'bg-white'}`}>
+        {/* 天花板 padding：小於 1920px (筆電) 是 12vh，大螢幕 1920px 以上恢復 18vh */}
+        <div className={`shrink-0 w-full pt-[12vh] min-[1920px]:pt-[18vh] pb-6 px-8 flex flex-col items-start gap-6 z-10 transition-colors duration-300 ${theme === 'dark' ? 'bg-[#0a0a0a]' : 'bg-white'}`}>
           <div className={`flex items-center gap-3 text-sm font-mono w-fit ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
             <span className="font-black tracking-wide">GET</span>
             <span className="font-medium truncate flex items-center">
@@ -907,8 +903,8 @@ function HomeView({ allSeasonAnime, currentSeasonInfo, onAdd, onOpenModal, isLoa
                   style={{ marginLeft: `${rowIndex * 1.25}rem` }}
                 >
                   {row.map((anime) => (
-                    // 卡片寬度在小螢幕設定 280px，外接螢幕 2xl 恢復 360px
-                    <div key={anime.id} className="w-[280px] 2xl:w-[360px] shrink-0">
+                    // 卡片寬度在筆電加大到 320px，並且加上 flex 讓它強制等高拉伸
+                    <div key={anime.id} className="w-[320px] min-[1920px]:w-[360px] shrink-0 flex">
                       <AnimeCardHome 
                         anime={anime} 
                         onAdd={() => onAdd(anime, LIST_STATUS.PLANNED)} 
@@ -935,38 +931,39 @@ function AnimeCardHome({ anime, onClick, onAdd, theme }) {
     : (anime.year ? anime.year : (anime.airDateStr ? anime.airDateStr.split('-')[0] : ''));
 
   return (
-    <div className={`flex gap-5 p-3.5 cursor-pointer relative group transition-all hover:shadow-md rounded-2xl border w-full ${theme === 'dark' ? 'bg-[#141414] border-transparent hover:border-[#333]' : 'bg-white border-transparent hover:border-gray-100'}`} onClick={onClick}>
-      {/* 海報大小切換：預設給 14/13 吋較小尺寸，2xl 給大螢幕尺寸 */}
-      <img src={anime.imageUrl} alt={anime.title} className={`object-cover rounded-[12px] shrink-0 shadow-sm transition-transform group-hover:scale-[1.02] w-[85px] h-[125px] 2xl:w-[105px] 2xl:h-[155px] ${theme === 'dark' ? 'bg-[#222]' : 'bg-gray-100'}`} />
+    // 這裡加上 h-full 確保同一行的卡片高度都能等比例對齊，不會因為標題字數不同而大小不一
+    <div className={`flex gap-5 p-3.5 cursor-pointer relative group transition-all hover:shadow-md rounded-2xl border w-full h-full ${theme === 'dark' ? 'bg-[#141414] border-transparent hover:border-[#333]' : 'bg-white border-transparent hover:border-gray-100'}`} onClick={onClick}>
+      {/* 海報大小切換：小於 1920px 給筆電較小尺寸，外接大螢幕 1920px 給大尺寸 */}
+      <img src={anime.imageUrl} alt={anime.title} className={`object-cover rounded-[12px] shrink-0 shadow-sm transition-transform group-hover:scale-[1.02] w-[85px] h-[125px] min-[1920px]:w-[105px] min-[1920px]:h-[155px] ${theme === 'dark' ? 'bg-[#222]' : 'bg-gray-100'}`} />
       <div className="flex flex-col flex-1 py-1 min-w-0">
         
-        <div className={`font-medium mb-1 tracking-wide text-[10px] 2xl:text-[11px] ${anime.status === 'Currently Airing' ? (theme === 'dark' ? 'text-[#dbe6ff]' : 'text-[#dfe9ff]') : (anime.status === 'Finished Airing' ? 'text-[#BDC0BA]' : (anime.status === 'Upcoming' ? 'text-[#E8F5BD]' : (theme === 'dark' ? 'text-gray-600' : 'text-gray-400')))}`}>
+        <div className={`font-medium mb-1 tracking-wide text-[10px] min-[1920px]:text-[11px] ${anime.status === 'Currently Airing' ? (theme === 'dark' ? 'text-[#dbe6ff]' : 'text-[#dfe9ff]') : (anime.status === 'Finished Airing' ? 'text-[#BDC0BA]' : (anime.status === 'Upcoming' ? 'text-[#E8F5BD]' : (theme === 'dark' ? 'text-gray-600' : 'text-gray-400')))}`}>
           {anime.status}
         </div>
         
-        <div className={`font-medium mb-1.5 flex items-center gap-2 text-[11px] 2xl:text-[12px] ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
+        <div className={`font-medium mb-1.5 flex items-center gap-2 text-[11px] min-[1920px]:text-[12px] ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
           {displayDate && <span>{displayDate}</span>}
           {anime.eps && <span>• {anime.eps} eps</span>}
         </div>
         
         {/* 標題大小切換 */}
-        <h3 className={`font-bold leading-tight line-clamp-2 pr-2 mb-2.5 text-[14px] 2xl:text-[16px] ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+        <h3 className={`font-bold leading-tight line-clamp-2 pr-2 mb-2.5 text-[14px] min-[1920px]:text-[16px] ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
           {anime.title}
         </h3>
         
         <div className="flex items-center gap-5 mb-2 mt-auto">
           <div className="flex flex-col">
-            <span className={`font-bold leading-none mb-1 flex items-center gap-1.5 text-[13px] 2xl:text-[14px] ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+            <span className={`font-bold leading-none mb-1 flex items-center gap-1.5 text-[13px] min-[1920px]:text-[14px] ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
               {sparkleIcon && <img src={sparkleIcon} className={`w-3.5 h-3.5 object-contain transition-all duration-300 ${theme === 'dark' ? 'invert' : ''}`} alt="star" />} 
               {anime.score}
             </span>
-            <span className={`text-[#BDC0BA] font-medium leading-none text-[9px] 2xl:text-[10px]`}>{anime.users ? (anime.users/1000).toFixed(0)+'k' : '0'} users</span>
+            <span className={`text-[#BDC0BA] font-medium leading-none text-[9px] min-[1920px]:text-[10px]`}>{anime.users ? (anime.users/1000).toFixed(0)+'k' : '0'} users</span>
           </div>
         </div>
         
         <div className="flex flex-wrap gap-1 mt-1">
           {anime.tags?.slice(0, 2).map(tag => (
-            <span key={tag} className={`font-bold px-0 rounded-none truncate max-w-[70px] text-[9px] 2xl:text-[10px] ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+            <span key={tag} className={`font-bold px-0 rounded-none truncate max-w-[70px] text-[9px] min-[1920px]:text-[10px] ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
               {translateGenre(tag) || tag}
             </span>
           ))}
@@ -986,7 +983,8 @@ function AnimeCardHorizontal({ anime, onClick, onAdd, theme }) {
     : (anime.year ? anime.year : (anime.airDateStr ? anime.airDateStr.split('-')[0] : ''));
 
   return (
-    <div className={`flex gap-4 p-3 cursor-pointer relative group transition-all hover:shadow-lg rounded-2xl border w-full ${theme === 'dark' ? 'bg-[#141414] border-transparent hover:border-[#333]' : 'bg-white border-transparent hover:border-gray-100'}`} onClick={onClick}>
+    // 這裡同樣補上 h-full
+    <div className={`flex gap-4 p-3 cursor-pointer relative group transition-all hover:shadow-lg rounded-2xl border w-full h-full ${theme === 'dark' ? 'bg-[#141414] border-transparent hover:border-[#333]' : 'bg-white border-transparent hover:border-gray-100'}`} onClick={onClick}>
       <img src={anime.imageUrl} alt={anime.title} className={`w-[85px] h-[125px] object-cover rounded-[12px] shrink-0 shadow-sm transition-transform group-hover:scale-[1.02] ${theme === 'dark' ? 'bg-[#222]' : 'bg-gray-100'}`} />
       <div className="flex flex-col flex-1 py-1 min-w-0">
         
@@ -1243,8 +1241,8 @@ function CatalogView({ searchQuery, onAdd, onOpenModal, theme }) {
           </div>
         ) : (
           <>
-            {/* 目錄頁：小螢幕3欄，大螢幕4欄 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 mb-10 w-full mx-auto">
+            {/* 保留 4 欄的設定 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10 w-full mx-auto">
               {data.map((anime) => (
                 <div key={`cat-${anime.id}`} className="w-full">
                   <AnimeCardHorizontal anime={anime} onAdd={() => onAdd(anime, LIST_STATUS.PLANNED)} onClick={() => onOpenModal(anime)} theme={theme} />
@@ -1381,7 +1379,7 @@ function ProfileView({ playlist, onUpdateProgress, onChangeStatus, onRemove, onO
             List is empty.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 w-full mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full mx-auto">
             {sortedList.map(anime => {
                const isWatching = activeTab === LIST_STATUS.WATCHING;
 
