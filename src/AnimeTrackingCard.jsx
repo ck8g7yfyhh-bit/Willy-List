@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
 // 改成這樣
-const wattpadLogo = './wattpad.png';
-const codeIcon = './code.png';
-const anilistIcon = './anilist.svg';
-const developerIcon = './developer.png';
-const notionIcon = './notion-icon.svg';
-const sparkleIcon = './sparkle.png';
-const anilistLogoWhite = './AniList_logo白.svg';
-const anilistLogo = './AniList_logo.svg.png';
+const wattpadLogo = import.meta.env.BASE_URL + 'wattpad.png';
+const codeIcon = import.meta.env.BASE_URL + 'code.png';
+const anilistIcon = import.meta.env.BASE_URL + 'anilist.svg';
+const developerIcon = import.meta.env.BASE_URL + 'developer.png';
+const notionIcon = import.meta.env.BASE_URL + 'notion-icon.svg';
+const sparkleIcon = import.meta.env.BASE_URL + 'sparkle.png';
+const anilistLogoWhite = import.meta.env.BASE_URL + 'AniList_logo白.svg';
+const anilistLogo = import.meta.env.BASE_URL + 'AniList_logo.svg.png';
 
 
 const LIST_STATUS = {
